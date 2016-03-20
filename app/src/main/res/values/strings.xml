@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Audio QZ</string>
+    <string name="action_settings">Settings</string>
+    <string name="go">Go</string>
+    <string name="stop_all">Stop all</string>
+    <string name="one_hundred_percent">100%</string>
+</resources>
