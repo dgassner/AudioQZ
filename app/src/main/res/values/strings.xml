@@ -4,4 +4,5 @@
     <string name="go">Go</string>
     <string name="stop_all">Stop all</string>
     <string name="one_hundred_percent">100%</string>
+    <string name="cue_number_label">"Cue #: "</string>
 </resources>

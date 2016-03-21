@@ -32,6 +32,21 @@
         android:text="@string/stop_all"
         android:textSize="@dimen/big_button_text_size" />
 
+    <!--<fragment-->
+        <!--class="com.davidgassner.audioqz.CueListFragment"-->
+        <!--android:id="@+id/cue_list_fragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/stopButton"-->
+        <!--android:layout_above="@+id/playerControls"/>-->
+
+    <ListView
+        android:id="@+id/cue_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/stopButton"
+        android:layout_above="@+id/playerControls"/>
+
     <RelativeLayout
         android:id="@+id/playerControls"
         android:layout_width="match_parent"

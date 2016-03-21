@@ -8,6 +8,9 @@ import android.util.Log;
 
 import com.davidgassner.audioqz.model.Cue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // defines cues table
 public class CuesTable {
 
@@ -62,6 +65,22 @@ public class CuesTable {
         cue.setTargetFile(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_FILE)));
         cue.setType(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_TYPE)));
         return cue;
+    }
+
+    private static List<Cue> getAllCues(SQLiteDatabase db) {
+        List<Cue> cueList = new ArrayList<>();
+
+        try (Cursor cursor = db.query(TABLE_NAME,
+                new String[]{CUE_ID, CUE_INDEX, CUE_NUMBER, CUE_TITLE, CUE_FILE, CUE_TYPE},
+                null, null, null, null, CUE_INDEX, null)) {
+            while (cursor.moveToNext()) {
+                Cue cue = getCueFromCursor(cursor);
+                cueList.add(cue);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "getItem: " + e.getMessage());
+        }
+        return cueList;
     }
 
     /**

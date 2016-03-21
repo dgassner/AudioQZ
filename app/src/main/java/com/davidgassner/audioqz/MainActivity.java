@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -15,14 +17,14 @@ import android.widget.Toast;
 
 import com.davidgassner.audioqz.audio.Player;
 import com.davidgassner.audioqz.database.DatabaseHelper;
+import com.davidgassner.audioqz.layout.CueListAdapter;
 import com.davidgassner.audioqz.model.Cue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-/***
- * TODO: investigate crash on onPause()
- */
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar seekBar;
     private RelativeLayout playerControls;
     private Button goButton, stopButton;
+
+    private List<Cue> cueList;
+    private CueListAdapter listAdapter;
 
     private Map<String, Player> players = new HashMap<>();
 
@@ -57,11 +62,22 @@ public class MainActivity extends AppCompatActivity {
         Cue cue = dbHelper.getCueByIndex(1);
         Log.i(TAG, "onCreate: " + cue);
 
+
         players.put(PLAYER_KEY, new Player(this, cue));
         Player player = players.get(PLAYER_KEY);
 
         fileNameText.setText(cue.getTargetFile());
 //***** End testing code **********
+
+        cueList = new ArrayList<>();
+        cueList.add(cue);
+
+        ListView listView = (ListView) findViewById(R.id.cue_list);
+        listAdapter = new CueListAdapter(this, cueList);
+        if (listView != null) {
+            listView.setAdapter(listAdapter);
+        }
+
     }
 
     private void initWidgetIds() {
@@ -140,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        stopAllCues(null);
+//        stopAllCues(null);
     }
 
     public void stopAllCues(View view) {
@@ -148,12 +164,6 @@ public class MainActivity extends AppCompatActivity {
             entry.getValue().stop();
         }
         playerControls.setVisibility(View.INVISIBLE);
-    }
-
-    private void seedDatabase() {
-
-
-
     }
 
 }
