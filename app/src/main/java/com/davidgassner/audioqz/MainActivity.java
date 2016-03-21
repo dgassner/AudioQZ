@@ -20,6 +20,9 @@ import com.davidgassner.audioqz.model.Cue;
 import java.util.HashMap;
 import java.util.Map;
 
+/***
+ * TODO: investigate crash on onPause()
+ */
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
