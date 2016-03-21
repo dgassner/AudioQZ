@@ -22,6 +22,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String TAG = getClass().getSimpleName();
     private DatabaseHelper dbHelper;
 
     private TextView fileNameText, volumePercentText;
@@ -49,16 +50,12 @@ public class MainActivity extends AppCompatActivity {
         initListenersAndState();
 
 //***** Testing code ***********
-//      Add to cue list for testing
+//      Add cue from database to cue list for testing
         Cue cue = dbHelper.getCueByIndex(1);
-//        Cue cue = new Cue();
-//        cue.setTargetFile("charleston.wav");
-//        cue.setTitle("Charleston");
-//        cue.setType(Cue.CUE_TYPE_AUDIO);
+        Log.i(TAG, "onCreate: " + cue);
 
         players.put(PLAYER_KEY, new Player(this, cue));
         Player player = players.get(PLAYER_KEY);
-        player.prepare();
 
         fileNameText.setText(cue.getTargetFile());
 //***** End testing code **********
@@ -128,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void playCue(View view) {
         try {
-            players.get(PLAYER_KEY).play();
+            players.get(PLAYER_KEY).prepareAndPlay();
             seekBar.setProgress(seekBar.getMax());
             playerControls.setVisibility(View.VISIBLE);
         } catch (Exception e) {

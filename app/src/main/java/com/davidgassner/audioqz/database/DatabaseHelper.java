@@ -47,7 +47,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "seedDatabase: number of cues: " + cnt);
 
         if (cnt == 0) {
-            Cue cue = new Cue(1, "1", "Charleston", "charleston.wav", Cue.CUE_TYPE_AUDIO);
+            Cue cue = new Cue();
+            cue.setCueIndex(1);
+            cue.setCueNumber("1");
+            cue.setTitle("Charleston");
+            cue.setTargetFile("charleston.wav");
+            cue.setType(Cue.CUE_TYPE_AUDIO);
             CuesTable.createItem(db, cue);
             Log.i(TAG, "seedDatabase: seeded");
         } else {

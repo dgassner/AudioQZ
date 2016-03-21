@@ -25,7 +25,7 @@ public class Player {
         this.cue = cue;
     }
 
-    public boolean prepare() {
+    public boolean prepareAndPlay() {
 
 //        Temporary - right now all audio files are in assets
         String fullFileName =
@@ -36,6 +36,7 @@ public class Player {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 isPrepared = true;
+                play();
             }
         });
 

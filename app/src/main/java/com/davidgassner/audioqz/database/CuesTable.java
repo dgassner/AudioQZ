@@ -3,6 +3,7 @@ package com.davidgassner.audioqz.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.davidgassner.audioqz.model.Cue;
@@ -37,25 +38,29 @@ public class CuesTable {
     }
 
     public static Cue getItem(SQLiteDatabase db, int cueIndex) {
-        Cursor cursor = db.query(TABLE_NAME,
-                new String[]{CUE_INDEX, CUE_NUMBER, CUE_TITLE, CUE_FILE, CUE_TYPE},
-                CUE_INDEX + "=?",
-                new String[]{String.valueOf(cueIndex)}, null, null, null, null);
         Cue cue = null;
-        try {
+        try (Cursor cursor = db.query(TABLE_NAME,
+                new String[]{CUE_ID, CUE_INDEX, CUE_NUMBER, CUE_TITLE, CUE_FILE, CUE_TYPE},
+                CUE_INDEX + "=?",
+                new String[]{String.valueOf(cueIndex)}, null, null, null, null)) {
             if (cursor.moveToNext()) {
-                cue = new Cue();
-                cue.setCueIndex(cursor.getInt(cursor.getColumnIndex(CuesTable.CUE_INDEX)));
-                cue.setCueNumber(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_NUMBER)));
-                cue.setTitle(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_TITLE)));
-                cue.setTargetFile(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_FILE)));
-                cue.setType(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_TYPE)));
+                cue = getCueFromCursor(cursor);
             }
         } catch (Exception e) {
-            Log.e(TAG, "getItem: " + e.getMessage() );
-        } finally {
-            cursor.close();
+            Log.e(TAG, "getItem: " + e.getMessage());
         }
+        return cue;
+    }
+
+    @NonNull
+    private static Cue getCueFromCursor(Cursor cursor) {
+        Cue cue = new Cue();
+        cue.setCueId(cursor.getInt(cursor.getColumnIndex(CuesTable.CUE_ID)));
+        cue.setCueIndex(cursor.getInt(cursor.getColumnIndex(CuesTable.CUE_INDEX)));
+        cue.setCueNumber(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_NUMBER)));
+        cue.setTitle(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_TITLE)));
+        cue.setTargetFile(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_FILE)));
+        cue.setType(cursor.getString(cursor.getColumnIndex(CuesTable.CUE_TYPE)));
         return cue;
     }
 

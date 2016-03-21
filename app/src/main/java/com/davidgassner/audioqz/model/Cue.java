@@ -6,7 +6,7 @@ public class Cue {
     public static final String CUE_TYPE_STOP = "STOP";
     public static final String CUE_TYPE_FADE = "FADE";
 
-//    private String projectId;
+    private int cueId;
     private int cueIndex;
     private String cueNumber;
     private String title;
@@ -16,12 +16,12 @@ public class Cue {
     public Cue() {
     }
 
-    public Cue(int cueIndex, String cueNumber, String title, String targetFile, String type) {
-        this.cueIndex = cueIndex;
-        this.cueNumber = cueNumber;
-        this.title = title;
-        this.targetFile = targetFile;
-        this.type = type;
+    public int getCueId() {
+        return cueId;
+    }
+
+    public void setCueId(int cueId) {
+        this.cueId = cueId;
     }
 
     public int getCueIndex() {
