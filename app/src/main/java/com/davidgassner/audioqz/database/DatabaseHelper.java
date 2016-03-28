@@ -8,6 +8,9 @@ import android.util.Log;
 
 import com.davidgassner.audioqz.model.Cue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "audioqz";
@@ -39,6 +42,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return CuesTable.getItem(db, index);
     }
 
+    public List<Cue> getAllCues() {
+        List<Cue> cueList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        return CuesTable.getAllCues(db);
+    }
+
     public void seedDatabase() {
 
         SQLiteDatabase db = getReadableDatabase();
@@ -47,16 +56,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "seedDatabase: number of cues: " + cnt);
 
         if (cnt == 0) {
-            Cue cue = new Cue();
-            cue.setCueIndex(1);
-            cue.setCueNumber("1");
-            cue.setTitle("Charleston");
-            cue.setTargetFile("charleston.wav");
-            cue.setType(Cue.CUE_TYPE_AUDIO);
-            CuesTable.createItem(db, cue);
+//    adding 10 items to Cues table
+            for (int i = 0; i < 10; i++) {
+                Cue cue = new Cue();
+                cue.setCueIndex(i + 1);
+                cue.setCueNumber(String.valueOf(i + 1));
+                cue.setTitle(String.format("Charleston %d", i + 1));
+                cue.setTargetFile("charleston.wav");
+                cue.setType(Cue.CUE_TYPE_AUDIO);
+                CuesTable.createItem(db, cue);
+            }
             Log.i(TAG, "seedDatabase: seeded");
         } else {
-            Log.i(TAG, "seedDatabase: not empty");
+            Log.i(TAG, "seedDatabase: number of cues: " + cnt);
         }
 
     }

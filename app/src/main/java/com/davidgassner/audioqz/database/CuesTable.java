@@ -67,7 +67,7 @@ public class CuesTable {
         return cue;
     }
 
-    private static List<Cue> getAllCues(SQLiteDatabase db) {
+    public static List<Cue> getAllCues(SQLiteDatabase db) {
         List<Cue> cueList = new ArrayList<>();
 
         try (Cursor cursor = db.query(TABLE_NAME,

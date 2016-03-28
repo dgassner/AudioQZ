@@ -1,12 +1,15 @@
 package com.davidgassner.audioqz.layout;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.davidgassner.audioqz.R;
 
@@ -25,7 +28,20 @@ public class CueListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cue_list, container, false);
+        View cueListView = inflater.inflate(R.layout.fragment_cue_list, container, false);
+
+        ListView listView = (ListView) cueListView.findViewById(R.id.cue_list);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setBackgroundColor(Color.RED);
+                Uri uri = Uri.parse("http://davidgassner.com/audioqz/cue/select/" + position);
+                mListener.onFragmentInteraction(uri);
+            }
+        });
+
+        return cueListView;
+
     }
 
     @Override

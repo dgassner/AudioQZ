@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity
 implements CueListFragment.OnFragmentInteractionListener {
 
     private final String TAG = getClass().getSimpleName();
-    private DatabaseHelper dbHelper;
 
     private TextView fileNameText, volumePercentText;
     private SeekBar seekBar;
@@ -54,7 +52,7 @@ implements CueListFragment.OnFragmentInteractionListener {
         setSupportActionBar(toolbar);
 
 //      Call init methods
-        dbHelper = new DatabaseHelper(this);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
         dbHelper.seedDatabase();
 
         initWidgetIds();
@@ -67,13 +65,12 @@ implements CueListFragment.OnFragmentInteractionListener {
 
 
         players.put(PLAYER_KEY, new Player(this, cue));
-        Player player = players.get(PLAYER_KEY);
+//        Player player = players.get(PLAYER_KEY);
 
         fileNameText.setText(cue.getTargetFile());
 //***** End testing code **********
 
-        cueList = new ArrayList<>();
-        cueList.add(cue);
+        cueList = dbHelper.getAllCues();
 
         ListView listView = (ListView) findViewById(R.id.cue_list);
         listAdapter = new CueListAdapter(this, cueList);
