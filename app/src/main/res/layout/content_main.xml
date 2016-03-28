@@ -32,40 +32,36 @@
         android:text="@string/stop_all"
         android:textSize="@dimen/big_button_text_size" />
 
-    <!--<fragment-->
-        <!--class="com.davidgassner.audioqz.CueListFragment"-->
-        <!--android:id="@+id/cue_list_fragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_below="@id/stopButton"-->
-        <!--android:layout_above="@+id/playerControls"/>-->
-
-    <ListView
-        android:id="@+id/cue_list"
+    <fragment
+        android:id="@+id/cue_list_fragment"
+        class="com.davidgassner.audioqz.layout.CueListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/stopButton"
-        android:layout_above="@+id/playerControls"/>
+        android:layout_above="@+id/playerControls"
+        android:layout_below="@id/stopButton"
+        tools:layout="@layout/fragment_cue_list" />
 
     <RelativeLayout
         android:id="@+id/playerControls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/nowPlayingMessage">
+
         <SeekBar
             android:id="@+id/seekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/volumePercentText"
             android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/volumePercentText"
             android:max="@integer/seek_bar_max"
-            android:progress="@integer/seek_bar_max"/>
+            android:progress="@integer/seek_bar_max" />
+
         <TextView
             android:id="@+id/volumePercentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="@string/one_hundred_percent"/>
+            android:text="@string/one_hundred_percent" />
     </RelativeLayout>
 
     <TextView

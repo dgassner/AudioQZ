@@ -1,5 +1,6 @@
 package com.davidgassner.audioqz;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.davidgassner.audioqz.audio.Player;
 import com.davidgassner.audioqz.database.DatabaseHelper;
 import com.davidgassner.audioqz.layout.CueListAdapter;
+import com.davidgassner.audioqz.layout.CueListFragment;
 import com.davidgassner.audioqz.model.Cue;
 
 import java.util.ArrayList;
@@ -25,7 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+implements CueListFragment.OnFragmentInteractionListener {
 
     private final String TAG = getClass().getSimpleName();
     private DatabaseHelper dbHelper;
@@ -166,4 +169,8 @@ public class MainActivity extends AppCompatActivity {
         playerControls.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.i(TAG, "onFragmentInteraction: " + uri.toString());
+    }
 }
